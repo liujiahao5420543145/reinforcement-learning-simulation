@@ -1,0 +1,113 @@
+<mujoco model="pomdp_car">
+
+    <!-- 初始视角聚焦小车，避免地面尺寸使小车显示过小 -->
+    <statistic center="0 0 0.25" extent="4"/>
+
+    <!-- 仿真设置 -->
+    <option
+        timestep="0.002"
+        gravity="0 0 -9.81"
+    />
+
+    <!-- 默认参数 -->
+    <default>
+        <geom friction="0.8 0.1 0.1"/>
+    </default>
+
+    <worldbody>
+
+        <!-- 地面，仅用于视觉展示 -->
+        <geom
+            name="ground"
+            type="plane"
+            size="20 5 0.1"
+            rgba="0.7 0.7 0.7 1"
+        />
+
+        <!-- 小车主体 -->
+        <body name="car" pos="0 0 0.25">
+
+            <!-- 沿X轴滑动 -->
+            <joint
+                name="car_slide"
+                type="slide"
+                axis="1 0 0"
+                damping="1.0"
+            />
+
+            <!-- 车身 -->
+            <geom
+                name="car_body"
+                type="box"
+                size="0.3 0.2 0.1"
+                mass="2.0"
+                rgba="0.1 0.4 1 1"
+            />
+
+            <!-- 四个轮子：视觉模型 -->
+            <geom
+                name="wheel_fl"
+                type="cylinder"
+                pos="0.2 0.22 -0.1"
+                euler="90 0 0"
+                size="0.08 0.04"
+                mass="0.01"
+                contype="0"
+                conaffinity="0"
+                rgba="0.1 0.1 0.1 1"
+            />
+
+            <geom
+                name="wheel_fr"
+                type="cylinder"
+                pos="0.2 -0.22 -0.1"
+                euler="90 0 0"
+                size="0.08 0.04"
+                mass="0.01"
+                contype="0"
+                conaffinity="0"
+                rgba="0.1 0.1 0.1 1"
+            />
+
+            <geom
+                name="wheel_rl"
+                type="cylinder"
+                pos="-0.2 0.22 -0.1"
+                euler="90 0 0"
+                size="0.08 0.04"
+                mass="0.01"
+                contype="0"
+                conaffinity="0"
+                rgba="0.1 0.1 0.1 1"
+            />
+
+            <geom
+                name="wheel_rr"
+                type="cylinder"
+                pos="-0.2 -0.22 -0.1"
+                euler="90 0 0"
+                size="0.08 0.04"
+                mass="0.01"
+                contype="0"
+                conaffinity="0"
+                rgba="0.1 0.1 0.1 1"
+            />
+
+        </body>
+
+    </worldbody>
+
+    <!-- 电机执行器 -->
+    <actuator>
+
+        <motor
+            name="car_motor"
+            joint="car_slide"
+            gear="1"
+            ctrllimited="true"
+            ctrlrange="-10 10"
+        />
+
+    </actuator>
+
+</mujoco>

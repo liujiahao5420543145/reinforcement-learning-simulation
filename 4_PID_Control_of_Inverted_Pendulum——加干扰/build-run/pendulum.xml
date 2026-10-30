@@ -1,0 +1,82 @@
+<mujoco model="inverted_pendulum">
+
+    <!-- ===================================== -->
+    <!-- 1. 仿真参数 -->
+    <!-- ===================================== -->
+
+    <option
+        timestep="0.002"
+        gravity="0 0 -9.81"
+    />
+
+    <!-- ===================================== -->
+    <!-- 2. 物理世界 -->
+    <!-- ===================================== -->
+
+    <worldbody>
+
+        <!-- 地面 -->
+        <geom
+            name="ground"
+            type="plane"
+            size="5 5 0.1"
+            rgba="0.7 0.7 0.7 1"
+        />
+
+        <!-- 固定底座 -->
+        <body name="base" pos="0 0 0.1">
+
+            <geom
+                name="base_geom"
+                type="box"
+                size="0.2 0.2 0.1"
+                rgba="0.3 0.3 0.3 1"
+            />
+
+        </body>
+
+        <!-- ================================= -->
+        <!-- 倒立摆 -->
+        <!-- ================================= -->
+
+        <body name="pendulum" pos="0 0 0.2">
+
+            <!-- 绕Y轴旋转 -->
+            <joint
+                name="pendulum_joint"
+                type="hinge"
+                axis="0 1 0"
+                damping="0.02"
+            />
+
+            <!-- 摆杆长度1米 -->
+            <geom
+                name="pendulum_rod"
+                type="capsule"
+                fromto="0 0 0 0 0 1"
+                size="0.04"
+                mass="1"
+                rgba="0.1 0.4 1 1"
+            />
+
+        </body>
+
+    </worldbody>
+
+    <!-- ===================================== -->
+    <!-- 3. 电机执行器 -->
+    <!-- ===================================== -->
+
+    <actuator>
+
+        <motor
+            name="pendulum_motor"
+            joint="pendulum_joint"
+            gear="1"
+            ctrllimited="true"
+            ctrlrange="-20 20"
+        />
+
+    </actuator>
+
+</mujoco>

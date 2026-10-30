@@ -1,0 +1,20 @@
+Start testing: Oct 29 23:29 CST
+----------------------------------------------------------
+1/1 Testing: pid_control
+1/1 Test: pid_control
+Command: "/home/liujiahao/MuJoCo_Projects/4_PID_Control_of_Inverted_Pendulum——小车/build-cart/pid_control_test"
+Directory: /home/liujiahao/MuJoCo_Projects/4_PID_Control_of_Inverted_Pendulum——小车/build-cart
+"pid_control" start time: Oct 29 23:29 CST
+Output:
+----------------------------------------------------------
+10s: x=0.0107861 theta=-0.00116194
+PID tests passed
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Passed.
+"pid_control" end time: Oct 29 23:29 CST
+"pid_control" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 29 23:29 CST

@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/liujiahao/MuJoCo_Projects/single_joint_test/build_current/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

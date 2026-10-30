@@ -1,0 +1,12 @@
+ERROR Thu Oct 29 21:45:00 2026: could not initialize GLFW
+
+ERROR Thu Oct 29 21:45:07 2026: could not initialize GLFW
+
+ERROR Thu Oct 29 21:45:37 2026: could not initialize GLFW
+
+ERROR Thu Oct 29 22:49:33 2026: mjui_add: data pointer for item without data
+
+ERROR Thu Oct 29 22:49:45 2026: mjui_add: data pointer for item without data
+
+ERROR Thu Oct 29 23:32:49 2026: could not initialize GLFW
+

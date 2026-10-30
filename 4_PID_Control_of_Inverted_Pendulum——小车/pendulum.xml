@@ -1,0 +1,29 @@
+<mujoco model="cart_inverted_pendulum">
+  <compiler angle="radian"/>
+  <option timestep="0.002" gravity="0 0 -9.81" integrator="RK4"/>
+  <visual><global azimuth="90" elevation="-15"/><map znear="0.01"/></visual>
+  <statistic center="0 0 0.7" extent="3.5"/>
+  <default><geom contype="0" conaffinity="0"/></default>
+  <worldbody>
+    <light pos="0 -2 4" dir="0 0 -1"/>
+    <geom name="ground" type="plane" size="5 3 0.1" rgba="0.8 0.83 0.87 1"/>
+    <!-- 两根可视导轨；运动由 slide 关节约束，无需轮子自由度。 -->
+    <geom type="box" pos="0 -0.18 0.12" size="2.7 0.025 0.035" rgba="0.3 0.3 0.35 1"/>
+    <geom type="box" pos="0 0.18 0.12" size="2.7 0.025 0.035" rgba="0.3 0.3 0.35 1"/>
+    <geom type="box" pos="-2.65 0 0.2" size="0.05 0.3 0.15" rgba="0.8 0.3 0.2 1"/>
+    <geom type="box" pos="2.65 0 0.2" size="0.05 0.3 0.15" rgba="0.8 0.3 0.2 1"/>
+    <body name="cart" pos="0 0 0.25">
+      <joint name="cart_slide" type="slide" axis="1 0 0" limited="true" range="-2.4 2.4" damping="0.1"/>
+      <geom name="cart_geom" type="box" size="0.2 0.24 0.1" mass="1" rgba="0.25 0.55 0.65 1"/>
+      <body name="pendulum" pos="0 0 0.1">
+        <!-- 正角度表示向 +x 倾斜；此关节没有电机。 -->
+        <joint name="pendulum_joint" type="hinge" axis="0 1 0" damping="0.02" limited="false"/>
+        <geom name="pendulum_rod" type="capsule" fromto="0 0 0 0 0 1" size="0.04" mass="1" rgba="0.1 0.4 1 1"/>
+      </body>
+    </body>
+  </worldbody>
+  <actuator>
+    <!-- gear=1，ctrl 单位为 N，只向小车施加水平力。 -->
+    <motor name="cart_motor" joint="cart_slide" gear="1" ctrllimited="true" ctrlrange="-20 20"/>
+  </actuator>
+</mujoco>

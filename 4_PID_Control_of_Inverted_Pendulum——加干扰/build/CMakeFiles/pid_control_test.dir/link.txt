@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/pid_control_test.dir/link.d CMakeFiles/pid_control_test.dir/tests/pid_control_test.cpp.o CMakeFiles/pid_control_test.dir/pendulum_control.cpp.o -o pid_control_test  -Wl,-rpath,/home/liujiahao/.mujoco/mujoco-3.17.0/lib /home/liujiahao/.mujoco/mujoco-3.17.0/lib/libmujoco.so

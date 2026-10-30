@@ -1,0 +1,55 @@
+<!-- MuJoCo 模型根节点，模型名称为 single_joint_arm。 -->
+<mujoco model="single_joint_arm">
+
+    <!-- 仿真参数分区：设置仿真步长和重力。 -->
+    <!-- 仿真步长为 0.002 秒；重力沿 Z 轴向下，大小为 9.81 m/s²。 -->
+    <option timestep="0.002" gravity="0 0 -9.81"/>
+
+    <!-- 物理世界分区：包含地面和机械臂刚体。 -->
+    <!-- 世界坐标系中的物体容器。 -->
+    <worldbody>
+
+        <!-- 地面几何体：提供机械臂下方的平面。 -->
+        <!-- 地面几何体 ground 为无限平面，尺寸半宽参数为 5，颜色为灰色且不透明。 -->
+        <geom name="ground" type="plane" size="5 5 0.1" rgba="0.7 0.7 0.7 1"/>
+
+        <!-- 固定底座刚体：放置在世界坐标 (0, 0, 0.4)。 -->
+        <!-- 底座刚体名称和位置。 -->
+        <body name="base" pos="0 0 0.4">
+
+            <!-- base_geom 是圆柱底座，半径为 0.15，高度参数为 0.1，颜色为不透明深灰色。 -->
+            <geom name="base_geom" type="cylinder" size="0.15 0.1" rgba="0.3 0.3 0.3 1"/>
+
+        <!-- 固定底座刚体定义结束。 -->
+        </body>
+
+        <!-- 机械臂刚体：关节原点位于世界坐标 (0, 0, 0.5)。 -->
+        <!-- 机械臂刚体名称和相对父级的位置。 -->
+        <body name="arm" pos="0 0 0.5">
+
+            <!-- 旋转关节：允许机械臂绕 Z 轴转动。 -->
+            <!-- arm_hinge 是单自由度铰链，转轴沿局部 Z 轴，阻尼系数为 0.1。 -->
+            <joint name="arm_hinge" type="hinge" axis="0 0 1" damping="0.1"/>
+
+            <!-- 机械臂杆几何体：以胶囊体表示杆件。 -->
+            <!-- arm_geom 为胶囊形杆件，从局部原点延伸到 (1, 0, 0)，半径 0.06，质量 1，颜色为不透明蓝色。 -->
+            <geom name="arm_geom" type="capsule" fromto="0 0 0 1 0 0" size="0.06" mass="1" rgba="0.1 0.4 1 1"/>
+
+        <!-- 机械臂刚体定义结束。 -->
+        </body>
+
+    <!-- 世界刚体与几何体定义结束。 -->
+    </worldbody>
+
+    <!-- 位置执行器分区：通过目标角度控制铰链关节。 -->
+    <!-- 执行器定义容器。 -->
+    <actuator>
+
+        <!-- arm_position 位置伺服控制 arm_hinge，kp 为 10、kv 为 1，目标范围约为 ±π 弧度并启用限幅。 -->
+        <position name="arm_position" joint="arm_hinge" kp="10" kv="1" ctrlrange="-3.14159 3.14159" ctrllimited="true"/>
+
+    <!-- 执行器定义结束。 -->
+    </actuator>
+
+<!-- MuJoCo 模型定义结束。 -->
+</mujoco>
